@@ -1,3 +1,5 @@
+// to compile: g++ -std=c++11 25.cpp
+
 #include <iostream>
 #include "Sales_item.h"
 
