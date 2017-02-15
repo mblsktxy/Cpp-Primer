@@ -1,4 +1,9 @@
-// to compile: g++ -std=c++11 25.cpp
+/* 
+ * Using the Sales_item.h header from the Web site, compile and execute the
+ * bookstore program presented in this section.
+ *
+ * to compile, use $ g++ -std=c++11 25.cpp
+ */
 
 #include <iostream>
 #include "Sales_item.h"
