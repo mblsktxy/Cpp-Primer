@@ -1,5 +1,5 @@
 /*
- * TDefine your own versions of the TextQuery and QueryResult classes and
+ * Define your own versions of the TextQuery and QueryResult classes and
  * execute the runQueries function from § 12.3.1 (p.486).
  */
 
@@ -17,6 +17,7 @@
 using line_no = std::vector<std::string>::size_type;
 
 class QueryResult; // declaration needed for return type in the query function
+
 class TextQuery {
 public:
     TextQuery(std::ifstream&);
@@ -40,5 +41,7 @@ private:
     std::shared_ptr<std::set<line_no>> lines; // lines it’s on
     std::shared_ptr<std::vector<std::string>> file; // input file
 };
+
+std::ostream& print(std::ostream&, const QueryResult&);
 
 #endif

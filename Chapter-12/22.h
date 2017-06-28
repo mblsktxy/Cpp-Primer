@@ -13,30 +13,20 @@
 #include <initializer_list>
 #include <memory>
 
-using std::vector;
-using std::string;
-using std::initializer_list;
-using std::make_shared;
-using std::shared_ptr;
-using std::weak_ptr;
-using std::out_of_range;
-using std::runtime_error;
-using std::cout;
-using std::endl;
-
 class ConstStrBlobPtr;
 
 class StrBlob {
 friend class ConstStrBlobPtr;
 
 public:
-    typedef vector<string>::size_type size_type;
-    StrBlob(): data(make_shared<vector<string>>()) { }
-    StrBlob(initializer_list<string> i1): data(make_shared<vector<string>>(i1)) { }
+    typedef std::vector<std::string>::size_type size_type;
+    StrBlob(): data(std::make_shared<std::vector<std::string>>()) { }
+    StrBlob(std::initializer_list<std::string> i1): 
+        data(std::make_shared<std::vector<std::string>>(i1)) { }
     size_type size() const { return data->size(); }
     bool empty() const { return data->empty(); }
     // add and remove elements
-    void push_back(const string &t) {
+    void push_back(const std::string &t) {
         data->push_back(t);
     }
     void pop_back() {
@@ -44,20 +34,20 @@ public:
         data->pop_back();
     }
     // element access
-    string& front() {
+    std::string& front() {
         // if the vector is empty, check will throw
         check(0, "front on empty StrBlob");
         return data->front();
     }
-    string& back() {
+    std::string& back() {
         check(0, "back on empty StrBlob");
         return data->back();
     }
-    const string& front() const {
+    const std::string& front() const {
         check(0, "front on empty StrBlob");
         return data->front();
     }
-    const string& back() const {
+    const std::string& back() const {
         check(0, "back on empty StrBlob");
         return data->back();
     }
@@ -65,11 +55,11 @@ public:
     ConstStrBlobPtr end() const; // should add const
 
 private:
-    shared_ptr<vector<string>> data;
+    std::shared_ptr<std::vector<std::string>> data;
     // throws msg is data[i] isn't valid
-    void check(size_type i, const string &msg) const {
+    void check(size_type i, const std::string &msg) const {
         if (i >= data->size())
-        throw out_of_range(msg);
+        throw std::out_of_range(msg);
     }
 };
 
@@ -79,7 +69,7 @@ public:
     ConstStrBlobPtr(): curr(0) { }
     ConstStrBlobPtr(const StrBlob &a, size_t sz = 0): wptr(a.data), curr(sz) { } // should add const
     bool operator!=(const ConstStrBlobPtr &p) { return p.curr != curr; }
-    const string& deref() const { // return value should add const
+    const std::string& deref() const { // return value should add const
         auto p = check(curr, "dereference past end");
         return (*p)[curr]; // (*p) is the vector to which this object points
     }
@@ -93,17 +83,17 @@ public:
 
 private:
     // check returns a shared_ptr to the vector if the check succeeds
-    shared_ptr<vector<string>> check(size_t i, const string& msg) const {
+    std::shared_ptr<std::vector<std::string>> check(size_t i, const std::string& msg) const {
         auto ret = wptr.lock();
         // is the vector still around?
         if (!ret)
-            throw runtime_error("unbound StrBlobPtr");
+            throw std::runtime_error("unbound StrBlobPtr");
         if (i >= ret->size())
-            throw out_of_range(msg);
+            throw std::out_of_range(msg);
         return ret; // otherwise, return a shared_ptr to the vector
     }
     // store a weak_ptr , which means the underlying vector might be destroyed
-    weak_ptr<vector<string>> wptr;
+    std::weak_ptr<std::vector<std::string>> wptr;
     size_t curr; // current position within the array
 };
 

@@ -44,7 +44,7 @@ string make_plural(size_t ctr, const string &word, const string &ending = "s") {
     return (ctr > 1) ? word + ending : word;
 }
 
-ostream &print(ostream & os, const QueryResult &qr) {
+ostream &print(ostream &os, const QueryResult &qr) {
     // if the word was found, print the count and all occurrences
     os << qr.sought << " occurs " << qr.lines->size() << " "
        << make_plural(qr.lines->size(), "time", "s") << endl;

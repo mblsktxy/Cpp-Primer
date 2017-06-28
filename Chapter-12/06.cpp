@@ -17,7 +17,7 @@ vector<int> *create() {
 	return new vector<int>();
 }
 
-void *populate(vector<int> *ptr) {
+void populate(vector<int> *ptr) {
 	for (int i; cin >> i; ptr->push_back(i));
 }
 

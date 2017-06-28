@@ -26,7 +26,7 @@ public:
 	size_type size() const { return data->size(); }
 	bool empty() const { return data->empty(); }
 	// add and remove elements
-	void push_back(const string &t) {data->push_back(t);}
+	void push_back(const string &t) { data->push_back(t); }
 	void pop_back();
 	// element access
 	string& front();

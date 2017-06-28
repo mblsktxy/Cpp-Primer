@@ -49,6 +49,6 @@ private:
     std::shared_ptr<std::vector<std::string>> file; // input file
 };
 
-std::ostream& print(std::ostream &, const QueryResult&);
+std::ostream& print(std::ostream&, const QueryResult&);
 
 #endif
